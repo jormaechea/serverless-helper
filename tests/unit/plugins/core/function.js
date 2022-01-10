@@ -19,7 +19,7 @@ describe('Core plugins', () => {
 				functions: [{
 					MyFunction: {
 						handler: 'path/to/handler.export',
-						name: '${self:custom.serviceTitle}-${self:custom.stage}-MyFunction' // eslint-disable-line no-template-curly-in-string
+						name: '${self:custom.serviceName}-${self:custom.stage}-MyFunction' // eslint-disable-line no-template-curly-in-string
 					}
 				}]
 			});
@@ -50,7 +50,7 @@ describe('Core plugins', () => {
 				functions: [{
 					MyFunction: {
 						handler: 'path/to/handler.export',
-						name: '${self:custom.serviceTitle}-${self:custom.stage}-MyFunction', // eslint-disable-line no-template-curly-in-string
+						name: '${self:custom.serviceName}-${self:custom.stage}-MyFunction', // eslint-disable-line no-template-curly-in-string
 						description: 'My super description',
 						timeout: 6,
 						events: [
