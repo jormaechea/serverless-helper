@@ -8,7 +8,7 @@ describe('Core plugins', () => {
 
 	describe('Lambda Function', () => {
 
-		it('Should return an object with the basic Lambda Function configuration', () => {
+		it('Should return an object with the basic Lambda Function configuration duplicated', () => {
 
 			const lambdaFunctionResult = lambdaFunction({}, {
 				functionName: 'MyFunction',
@@ -18,6 +18,10 @@ describe('Core plugins', () => {
 			assert.deepStrictEqual(lambdaFunctionResult, {
 				functions: [{
 					MyFunction: {
+						handler: 'path/to/handler.export',
+						name: '${self:custom.serviceTitle}-${self:custom.stage}-MyFunction' // eslint-disable-line no-template-curly-in-string
+					},
+					MyFunctionOld: {
 						handler: 'path/to/handler.export'
 					}
 				}]
@@ -45,25 +49,31 @@ describe('Core plugins', () => {
 				package: { include: ['path/to/includ/file.js'] }
 			});
 
+			const expectedFunctionConfiguration = {
+				handler: 'path/to/handler.export',
+				description: 'My super description',
+				timeout: 6,
+				events: [
+					{
+						schedule: 'rate(1 hour)'
+					},
+					{
+						s3: {
+							bucket: 'myBucket',
+							event: 's3:ObjectCreated:*'
+						}
+					}
+				],
+				package: { include: ['path/to/includ/file.js'] }
+			};
+
 			assert.deepStrictEqual(lambdaFunctionResult, {
 				functions: [{
 					MyFunction: {
-						handler: 'path/to/handler.export',
-						description: 'My super description',
-						timeout: 6,
-						events: [
-							{
-								schedule: 'rate(1 hour)'
-							},
-							{
-								s3: {
-									bucket: 'myBucket',
-									event: 's3:ObjectCreated:*'
-								}
-							}
-						],
-						package: { include: ['path/to/includ/file.js'] }
-					}
+						...expectedFunctionConfiguration,
+						name: '${self:custom.serviceTitle}-${self:custom.stage}-MyFunction' // eslint-disable-line no-template-curly-in-string
+					},
+					MyFunctionOld: expectedFunctionConfiguration
 				}]
 			});
 		});
