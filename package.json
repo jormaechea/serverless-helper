@@ -1,6 +1,6 @@
 {
   "name": "sls-helper",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "description": "A helper framework to write your serverless application configuration file",
   "main": "lib/helper.js",
   "scripts": {
