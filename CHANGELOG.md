@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- `bucket` and `resource` hooks current resources
+
 ## [1.15.0] - 2023-10-22
 ### Added
 - Support for async hooks
